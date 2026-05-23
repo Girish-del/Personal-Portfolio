@@ -1,0 +1,496 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+  --font-display: var(--font-bebas), ui-sans-serif, sans-serif;
+
+  /* === Brand palette ===
+     Light Bronze   #db995a
+     Mauve Bark     #654236
+     Vanilla Custard #d6d4a0
+     Chocolate      #da7635
+     Spicy Paprika  #e24e1b
+  */
+  --color-bronze: #db995a;
+  --color-mauve: #654236;
+  --color-vanilla: #d6d4a0;
+  --color-chocolate: #da7635;
+  --color-paprika: #e24e1b;
+
+  /* Legacy aliases (keep so any existing class like text-saffron still resolves) */
+  --color-saffron: #e24e1b;
+  --color-chai: #db995a;
+  --color-turmeric: #da7635;
+  --color-plaster: #d6d4a0;
+  --color-muted-warm: #8a6a55;
+  --color-street: #3d2820;
+
+  --animate-fade-up: fadeUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  --animate-ticker: ticker 30s linear infinite;
+  --animate-scroll-pulse: scrollPulse 2s 2s infinite;
+  --animate-caret: caret 1.1s steps(2, start) infinite;
+  --animate-float-y: floatY 9s ease-in-out infinite;
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-33.333%); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleX(0.6); }
+    50% { opacity: 1; transform: scaleX(1); }
+  }
+  @keyframes caret {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+}
+
+@layer base {
+  /* ============ LIGHT THEME — folk-art paper ============ */
+  :root {
+    color-scheme: light;
+    --gutter: clamp(1.25rem, 5vw, 4rem);
+
+    /* Vanilla Custard slightly lightened so body text stays comfortable */
+    --bg:        245 240 210;
+    --surface:   214 212 160;
+    --surface-elev: 255 252 230;
+    --ink:       101 66 54;
+    --ink-muted: 122 92 78;
+    --ink-subtle: 156 130 110;
+    --border:    101 66 54;
+    --border-strong: 218 118 53;
+    --ring:      218 118 53;
+
+    --accent:           218 118 53;   /* Chocolate */
+    --accent-secondary: 219 153 90;   /* Light Bronze */
+    --accent-hot:       226 78 27;    /* Spicy Paprika */
+
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+  }
+
+  /* ============ DARK THEME — rich coffee + spice ============ */
+  .dark {
+    color-scheme: dark;
+    --bg:        45 30 24;
+    --surface:   101 66 54;
+    --surface-elev: 122 82 68;
+    --ink:       236 232 200;
+    --ink-muted: 218 212 175;
+    --ink-subtle: 175 156 130;
+    --border:    218 153 90;
+    --border-strong: 226 78 27;
+    --ring:      226 78 27;
+
+    --accent:           226 78 27;    /* Spicy Paprika */
+    --accent-secondary: 218 118 53;   /* Chocolate */
+    --accent-hot:       219 153 90;   /* Light Bronze */
+  }
+
+  html {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* When Lenis is initialized it adds `lenis lenis-smooth` to <html> */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  html.lenis-smooth {
+    scroll-behavior: auto;
+  }
+  html.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  /* Fallback when Lenis isn't running */
+  html:not(.lenis) {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--ink));
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: pan-y;
+    overflow-x: clip;
+    /* IMPORTANT: do NOT hide the system cursor.
+       The custom dot is supplementary only. */
+  }
+
+  @media (max-width: 360px) {
+    html { font-size: 14.5px; }
+  }
+
+  /* Subtle grain — kept BELOW page content so it never masks anything */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.22;
+    mix-blend-mode: overlay;
+  }
+
+  ::selection {
+    background-color: rgb(var(--accent) / 0.4);
+    color: rgb(var(--ink));
+  }
+
+  *:focus-visible {
+    outline: 2px solid rgb(var(--ring));
+    outline-offset: 3px;
+  }
+
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  img, svg, video, canvas {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  img[width][height] { height: auto; }
+
+  section {
+    scroll-margin-top: 5.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html, html.lenis-smooth { scroll-behavior: auto !important; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .animate-ticker { animation: none !important; transform: translateX(0) !important; }
+  }
+}
+
+@layer utilities {
+  .bg-app          { background-color: rgb(var(--bg)); }
+  .bg-surface      { background-color: rgb(var(--surface)); }
+  .bg-surface-elev { background-color: rgb(var(--surface-elev)); }
+  .text-ink        { color: rgb(var(--ink)); }
+  .text-ink-muted  { color: rgb(var(--ink-muted)); }
+  .text-ink-subtle { color: rgb(var(--ink-subtle)); }
+  .text-accent     { color: rgb(var(--accent)); }
+  .text-accent-secondary { color: rgb(var(--accent-secondary)); }
+  .text-accent-hot { color: rgb(var(--accent-hot)); }
+  .bg-accent       { background-color: rgb(var(--accent)); }
+  .bg-accent-hot   { background-color: rgb(var(--accent-hot)); }
+  .border-accent   { border-color: rgb(var(--accent)); }
+
+  .gutter-x {
+    padding-left: max(var(--gutter), var(--safe-left));
+    padding-right: max(var(--gutter), var(--safe-right));
+  }
+
+  /* Safe-area utilities */
+  .pb-safe   { padding-bottom: max(1.25rem, calc(env(safe-area-inset-bottom) + 0.5rem)); }
+  .pt-safe   { padding-top: max(1.25rem, calc(env(safe-area-inset-top) + 0.5rem)); }
+  .bottom-safe { bottom: max(1rem, calc(env(safe-area-inset-bottom) + 0.5rem)); }
+  .right-safe  { right:  max(1rem, calc(env(safe-area-inset-right) + 0.5rem)); }
+  .left-safe   { left:   max(1rem, calc(env(safe-area-inset-left) + 0.5rem)); }
+
+  .touch-target { min-width: 44px; min-height: 44px; }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgb(var(--accent));
+    margin-bottom: 0.5rem;
+  }
+  @media (min-width: 768px) {
+    .section-label { letter-spacing: 0.55em; }
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    line-height: 1;
+    color: rgb(var(--ink));
+    margin-bottom: 1.5rem;
+    word-break: break-word;
+  }
+
+  .chapter-num {
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 14vw, 14rem);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(var(--accent) / 0.18);
+    pointer-events: none;
+    user-select: none;
+    position: absolute;
+    right: max(0.5rem, var(--gutter));
+    top: -0.5rem;
+    z-index: 0;
+    max-width: 60vw;
+    overflow: hidden;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    background: rgb(var(--accent));
+    color: rgb(var(--bg));
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.5rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    line-height: 1;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 rgb(var(--accent-secondary));
+    }
+  }
+  .btn-primary:active {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0 rgb(var(--accent-secondary));
+  }
+
+  .btn-ghost {
+    border: 1px solid rgb(var(--border) / 0.55);
+    color: rgb(var(--ink-muted));
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.5rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    line-height: 1;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-ghost:hover {
+      border-color: rgb(var(--accent));
+      color: rgb(var(--accent));
+    }
+  }
+  .btn-ghost:active {
+    border-color: rgb(var(--accent));
+    color: rgb(var(--accent));
+  }
+
+  /* Editorial panel — subtle paper / coffee tint */
+  .editorial-panel {
+    background: rgb(var(--surface) / 0.55);
+  }
+  .dark .editorial-panel {
+    background: rgb(var(--surface) / 0.4);
+  }
+
+  .editorial-body {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: rgb(var(--ink-muted));
+    max-width: 50ch;
+  }
+
+  .photo-label {
+    position: absolute;
+    bottom: 0.8rem;
+    left: 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgb(var(--bg));
+    background: rgb(var(--ink) / 0.75);
+    padding: 0.3rem 0.6rem;
+    z-index: 2;
+  }
+
+  .tag-pill {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid rgb(var(--border) / 0.35);
+    color: rgb(var(--ink-muted));
+    padding: 0.4rem 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .tag-pill:hover {
+      border-color: rgb(var(--accent));
+      color: rgb(var(--accent));
+    }
+  }
+
+  .stat-block {
+    border-left: 2px solid rgb(var(--accent));
+    padding-left: 1rem;
+    min-width: 0;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 2.6rem);
+    color: rgb(var(--accent-hot));
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgb(var(--ink-subtle));
+    margin-top: 0.3rem;
+  }
+
+  .achievement-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: rgb(var(--ink-muted));
+    line-height: 1.55;
+  }
+  .achievement-list li::before {
+    content: "→";
+    color: rgb(var(--accent));
+    flex-shrink: 0;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--border) / 0.4) transparent;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+
+  .min-w-0 { min-width: 0; }
+
+  html.scroll-locked,
+  html.scroll-locked body {
+    overflow: hidden !important;
+    touch-action: none !important;
+  }
+
+  /* === Warli folk-art tile === */
+  /* Light mode: Mauve Bark stroke for contrast on cream paper */
+  .warli-tile {
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 480' fill='none' stroke='%23654236' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg opacity='0.95'%3E%3Ccircle cx='60' cy='70' r='12'/%3E%3Cg stroke-dasharray='3 2'%3E%3Cline x1='60' y1='45' x2='60' y2='38'/%3E%3Cline x1='60' y1='95' x2='60' y2='102'/%3E%3Cline x1='35' y1='70' x2='28' y2='70'/%3E%3Cline x1='85' y1='70' x2='92' y2='70'/%3E%3Cline x1='42' y1='52' x2='36' y2='46'/%3E%3Cline x1='78' y1='52' x2='84' y2='46'/%3E%3Cline x1='42' y1='88' x2='36' y2='94'/%3E%3Cline x1='78' y1='88' x2='84' y2='94'/%3E%3C/g%3E%3Cg transform='translate(150 60)'%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Cline x1='0' y1='5' x2='0' y2='22'/%3E%3Cline x1='0' y1='12' x2='-9' y2='6'/%3E%3Cline x1='0' y1='12' x2='9' y2='6'/%3E%3Cline x1='0' y1='22' x2='-7' y2='38'/%3E%3Cline x1='0' y1='22' x2='7' y2='38'/%3E%3C/g%3E%3Cg transform='translate(190 60)'%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Cline x1='0' y1='5' x2='0' y2='22'/%3E%3Cline x1='0' y1='12' x2='-10' y2='4'/%3E%3Cline x1='0' y1='12' x2='10' y2='4'/%3E%3Cline x1='0' y1='22' x2='-8' y2='38'/%3E%3Cline x1='0' y1='22' x2='8' y2='38'/%3E%3C/g%3E%3Cg transform='translate(230 60)'%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Cline x1='0' y1='5' x2='0' y2='22'/%3E%3Cline x1='0' y1='12' x2='-9' y2='8'/%3E%3Cline x1='0' y1='12' x2='9' y2='8'/%3E%3Cline x1='0' y1='22' x2='-7' y2='40'/%3E%3Cline x1='0' y1='22' x2='7' y2='40'/%3E%3C/g%3E%3Cg transform='translate(270 60)'%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Cline x1='0' y1='5' x2='0' y2='22'/%3E%3Cline x1='0' y1='12' x2='-10' y2='4'/%3E%3Cline x1='0' y1='12' x2='10' y2='4'/%3E%3Cline x1='0' y1='22' x2='-8' y2='38'/%3E%3Cline x1='0' y1='22' x2='8' y2='38'/%3E%3C/g%3E%3Cline x1='160' y1='110' x2='270' y2='110'/%3E%3Cg transform='translate(380 70)'%3E%3Cpath d='M0,0 Q15,-10 30,0 Q15,10 0,0 Z'/%3E%3Cline x1='30' y1='0' x2='42' y2='-7'/%3E%3Cline x1='30' y1='0' x2='42' y2='7'/%3E%3Cline x1='42' y1='-7' x2='42' y2='7'/%3E%3Ccircle cx='8' cy='-2' r='1'/%3E%3C/g%3E%3Cg transform='translate(70 200)'%3E%3Cline x1='0' y1='0' x2='0' y2='80'/%3E%3Cline x1='0' y1='28' x2='-26' y2='8'/%3E%3Cline x1='0' y1='28' x2='26' y2='8'/%3E%3Cline x1='0' y1='48' x2='-34' y2='32'/%3E%3Cline x1='0' y1='48' x2='34' y2='32'/%3E%3Cline x1='0' y1='66' x2='-22' y2='56'/%3E%3Cline x1='0' y1='66' x2='22' y2='56'/%3E%3Ccircle cx='-26' cy='8' r='3'/%3E%3Ccircle cx='26' cy='8' r='3'/%3E%3Ccircle cx='-34' cy='32' r='3'/%3E%3Ccircle cx='34' cy='32' r='3'/%3E%3Ccircle cx='-22' cy='56' r='3'/%3E%3Ccircle cx='22' cy='56' r='3'/%3E%3Ccircle cx='0' cy='-6' r='4'/%3E%3C/g%3E%3Cg transform='translate(240 230)'%3E%3Ccircle cx='0' cy='0' r='7'/%3E%3Cline x1='0' y1='7' x2='0' y2='24'/%3E%3Cline x1='0' y1='24' x2='-7' y2='40'/%3E%3Cline x1='0' y1='24' x2='7' y2='40'/%3E%3Cpath d='M5,0 Q22,-18 36,-10 Q28,-5 36,0 Q28,5 36,10 Q22,18 5,0 Z'/%3E%3Ccircle cx='28' cy='-6' r='1.6'/%3E%3Ccircle cx='30' cy='0' r='1.6'/%3E%3Ccircle cx='28' cy='6' r='1.6'/%3E%3C/g%3E%3Cg transform='translate(360 220)'%3E%3Crect x='0' y='0' width='34' height='22'/%3E%3Cpolygon points='0,0 17,-15 34,0'/%3E%3Cline x1='13' y1='10' x2='13' y2='22'/%3E%3Cline x1='21' y1='10' x2='21' y2='22'/%3E%3C/g%3E%3Cpath d='M0,360 Q40,340 80,360 T160,360 T240,360 T320,360 T400,360 T480,360'/%3E%3Cpath d='M0,380 Q40,360 80,380 T160,380 T240,380 T320,380 T400,380 T480,380'/%3E%3Cg transform='translate(120 410)'%3E%3Ccircle cx='0' cy='0' r='4'/%3E%3Cline x1='0' y1='4' x2='0' y2='18'/%3E%3Cline x1='0' y1='10' x2='-8' y2='6'/%3E%3Cline x1='0' y1='10' x2='8' y2='6'/%3E%3Cline x1='0' y1='18' x2='-6' y2='30'/%3E%3Cline x1='0' y1='18' x2='6' y2='30'/%3E%3C/g%3E%3Cg transform='translate(155 410)'%3E%3Ccircle cx='0' cy='0' r='4'/%3E%3Cline x1='0' y1='4' x2='0' y2='18'/%3E%3Cline x1='0' y1='10' x2='-8' y2='4'/%3E%3Cline x1='0' y1='10' x2='8' y2='4'/%3E%3Cline x1='0' y1='18' x2='-6' y2='30'/%3E%3Cline x1='0' y1='18' x2='6' y2='30'/%3E%3C/g%3E%3Cg transform='translate(190 410)'%3E%3Ccircle cx='0' cy='0' r='4'/%3E%3Cline x1='0' y1='4' x2='0' y2='18'/%3E%3Cline x1='0' y1='10' x2='-8' y2='6'/%3E%3Cline x1='0' y1='10' x2='8' y2='6'/%3E%3Cline x1='0' y1='18' x2='-6' y2='30'/%3E%3Cline x1='0' y1='18' x2='6' y2='30'/%3E%3C/g%3E%3Cg transform='translate(330 400)'%3E%3Cpath d='M0,0 Q14,-8 28,0 Q14,8 0,0 Z'/%3E%3Cline x1='28' y1='0' x2='40' y2='-6'/%3E%3Cline x1='28' y1='0' x2='40' y2='6'/%3E%3Cline x1='40' y1='-6' x2='40' y2='6'/%3E%3Ccircle cx='8' cy='-2' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 480px 480px;
+    opacity: 0.08;
+  }
+  /* Dark mode: warm Chocolate stroke */
+  .dark .warli-tile {
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 480' fill='none' stroke='%23da7635' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg opacity='0.95'%3E%3Ccircle cx='60' cy='70' r='12'/%3E%3Cg stroke-dasharray='3 2'%3E%3Cline x1='60' y1='45' x2='60' y2='38'/%3E%3Cline x1='60' y1='95' x2='60' y2='102'/%3E%3Cline x1='35' y1='70' x2='28' y2='70'/%3E%3Cline x1='85' y1='70' x2='92' y2='70'/%3E%3Cline x1='42' y1='52' x2='36' y2='46'/%3E%3Cline x1='78' y1='52' x2='84' y2='46'/%3E%3Cline x1='42' y1='88' x2='36' y2='94'/%3E%3Cline x1='78' y1='88' x2='84' y2='94'/%3E%3C/g%3E%3Cg transform='translate(150 60)'%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Cline x1='0' y1='5' x2='0' y2='22'/%3E%3Cline x1='0' y1='12' x2='-9' y2='6'/%3E%3Cline x1='0' y1='12' x2='9' y2='6'/%3E%3Cline x1='0' y1='22' x2='-7' y2='38'/%3E%3Cline x1='0' y1='22' x2='7' y2='38'/%3E%3C/g%3E%3Cg transform='translate(190 60)'%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Cline x1='0' y1='5' x2='0' y2='22'/%3E%3Cline x1='0' y1='12' x2='-10' y2='4'/%3E%3Cline x1='0' y1='12' x2='10' y2='4'/%3E%3Cline x1='0' y1='22' x2='-8' y2='38'/%3E%3Cline x1='0' y1='22' x2='8' y2='38'/%3E%3C/g%3E%3Cg transform='translate(230 60)'%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Cline x1='0' y1='5' x2='0' y2='22'/%3E%3Cline x1='0' y1='12' x2='-9' y2='8'/%3E%3Cline x1='0' y1='12' x2='9' y2='8'/%3E%3Cline x1='0' y1='22' x2='-7' y2='40'/%3E%3Cline x1='0' y1='22' x2='7' y2='40'/%3E%3C/g%3E%3Cg transform='translate(270 60)'%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Cline x1='0' y1='5' x2='0' y2='22'/%3E%3Cline x1='0' y1='12' x2='-10' y2='4'/%3E%3Cline x1='0' y1='12' x2='10' y2='4'/%3E%3Cline x1='0' y1='22' x2='-8' y2='38'/%3E%3Cline x1='0' y1='22' x2='8' y2='38'/%3E%3C/g%3E%3Cline x1='160' y1='110' x2='270' y2='110'/%3E%3Cg transform='translate(380 70)'%3E%3Cpath d='M0,0 Q15,-10 30,0 Q15,10 0,0 Z'/%3E%3Cline x1='30' y1='0' x2='42' y2='-7'/%3E%3Cline x1='30' y1='0' x2='42' y2='7'/%3E%3Cline x1='42' y1='-7' x2='42' y2='7'/%3E%3Ccircle cx='8' cy='-2' r='1'/%3E%3C/g%3E%3Cg transform='translate(70 200)'%3E%3Cline x1='0' y1='0' x2='0' y2='80'/%3E%3Cline x1='0' y1='28' x2='-26' y2='8'/%3E%3Cline x1='0' y1='28' x2='26' y2='8'/%3E%3Cline x1='0' y1='48' x2='-34' y2='32'/%3E%3Cline x1='0' y1='48' x2='34' y2='32'/%3E%3Cline x1='0' y1='66' x2='-22' y2='56'/%3E%3Cline x1='0' y1='66' x2='22' y2='56'/%3E%3Ccircle cx='-26' cy='8' r='3'/%3E%3Ccircle cx='26' cy='8' r='3'/%3E%3Ccircle cx='-34' cy='32' r='3'/%3E%3Ccircle cx='34' cy='32' r='3'/%3E%3Ccircle cx='-22' cy='56' r='3'/%3E%3Ccircle cx='22' cy='56' r='3'/%3E%3Ccircle cx='0' cy='-6' r='4'/%3E%3C/g%3E%3Cg transform='translate(240 230)'%3E%3Ccircle cx='0' cy='0' r='7'/%3E%3Cline x1='0' y1='7' x2='0' y2='24'/%3E%3Cline x1='0' y1='24' x2='-7' y2='40'/%3E%3Cline x1='0' y1='24' x2='7' y2='40'/%3E%3Cpath d='M5,0 Q22,-18 36,-10 Q28,-5 36,0 Q28,5 36,10 Q22,18 5,0 Z'/%3E%3Ccircle cx='28' cy='-6' r='1.6'/%3E%3Ccircle cx='30' cy='0' r='1.6'/%3E%3Ccircle cx='28' cy='6' r='1.6'/%3E%3C/g%3E%3Cg transform='translate(360 220)'%3E%3Crect x='0' y='0' width='34' height='22'/%3E%3Cpolygon points='0,0 17,-15 34,0'/%3E%3Cline x1='13' y1='10' x2='13' y2='22'/%3E%3Cline x1='21' y1='10' x2='21' y2='22'/%3E%3C/g%3E%3Cpath d='M0,360 Q40,340 80,360 T160,360 T240,360 T320,360 T400,360 T480,360'/%3E%3Cpath d='M0,380 Q40,360 80,380 T160,380 T240,380 T320,380 T400,380 T480,380'/%3E%3Cg transform='translate(120 410)'%3E%3Ccircle cx='0' cy='0' r='4'/%3E%3Cline x1='0' y1='4' x2='0' y2='18'/%3E%3Cline x1='0' y1='10' x2='-8' y2='6'/%3E%3Cline x1='0' y1='10' x2='8' y2='6'/%3E%3Cline x1='0' y1='18' x2='-6' y2='30'/%3E%3Cline x1='0' y1='18' x2='6' y2='30'/%3E%3C/g%3E%3Cg transform='translate(155 410)'%3E%3Ccircle cx='0' cy='0' r='4'/%3E%3Cline x1='0' y1='4' x2='0' y2='18'/%3E%3Cline x1='0' y1='10' x2='-8' y2='4'/%3E%3Cline x1='0' y1='10' x2='8' y2='4'/%3E%3Cline x1='0' y1='18' x2='-6' y2='30'/%3E%3Cline x1='0' y1='18' x2='6' y2='30'/%3E%3C/g%3E%3Cg transform='translate(190 410)'%3E%3Ccircle cx='0' cy='0' r='4'/%3E%3Cline x1='0' y1='4' x2='0' y2='18'/%3E%3Cline x1='0' y1='10' x2='-8' y2='6'/%3E%3Cline x1='0' y1='10' x2='8' y2='6'/%3E%3Cline x1='0' y1='18' x2='-6' y2='30'/%3E%3Cline x1='0' y1='18' x2='6' y2='30'/%3E%3C/g%3E%3Cg transform='translate(330 400)'%3E%3Cpath d='M0,0 Q14,-8 28,0 Q14,8 0,0 Z'/%3E%3Cline x1='28' y1='0' x2='40' y2='-6'/%3E%3Cline x1='28' y1='0' x2='40' y2='6'/%3E%3Cline x1='40' y1='-6' x2='40' y2='6'/%3E%3Ccircle cx='8' cy='-2' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.09;
+  }
+
+  /* Side quest category cover — text-led cards without photos */
+  .quest-cover {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.25rem;
+  }
+  .quest-cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.55;
+    background: var(--quest-cover-gradient);
+  }
+  .quest-cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(var(--bg) / 0.55) 0%, transparent 55%);
+  }
+  .quest-cover--project { --quest-cover-gradient: linear-gradient(135deg, rgb(var(--accent) / 0.35), rgb(var(--accent-hot) / 0.2)); }
+  .quest-cover--publication { --quest-cover-gradient: linear-gradient(135deg, rgb(var(--accent-secondary) / 0.4), rgb(var(--accent) / 0.15)); }
+  .quest-cover--community { --quest-cover-gradient: linear-gradient(135deg, rgb(var(--accent) / 0.25), rgb(var(--accent-secondary) / 0.3)); }
+  .quest-cover--talk { --quest-cover-gradient: linear-gradient(135deg, rgb(var(--accent-hot) / 0.3), rgb(var(--accent) / 0.2)); }
+  .quest-cover-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -58%);
+    opacity: 0.12;
+    color: rgb(var(--ink));
+  }
+
+  /* Custom cursor dot — supplementary only */
+  .cursor-dot {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background: rgb(var(--accent));
+    mix-blend-mode: difference;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform;
+    transform: translate3d(-100px, -100px, 0);
+    transition: width 0.25s ease, height 0.25s ease, opacity 0.25s ease;
+    opacity: 0.85;
+  }
+  .cursor-dot.is-hovering {
+    width: 36px;
+    height: 36px;
+    opacity: 0.7;
+  }
+}
