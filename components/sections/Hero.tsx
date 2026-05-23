@@ -38,8 +38,7 @@ export function Hero() {
           </p>
 
           <p className="editorial-body mt-5 mb-8 sm:mb-10">
-            Backend systems, LLM agents, and cloud infrastructure — built to
-            survive production. Currently completing my MS at Arizona State.
+          Backend systems, LLM agents, and cloud infrastructure built to survive production. Graduated from Arizona State University with a Master’s in Software Engineering in 2026.
           </p>
 
           <div className="flex flex-wrap gap-3 sm:gap-4">
@@ -82,7 +81,7 @@ export function Hero() {
             </p>
             <p className="mt-3 max-w-xs font-mono text-xs leading-relaxed text-ink-muted">
               Add your photo at{" "}
-              <code className="text-accent-hot">public/hero.jpg</code>
+              <code className="text-accent-hot">public/hero.jpeg</code>
               <span className="mt-2 block text-ink-subtle">
                 Recommended: 3:4 portrait, min 900×1200px
               </span>

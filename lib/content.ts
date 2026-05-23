@@ -9,31 +9,31 @@ export const personal = {
   name: "Girish Nalawade",
   firstName: "Girish",
   shortBio:
-    "Software engineer building distributed backends, cloud-native microservices, and AI-powered agents. Currently completing my MS in Computer Science at Arizona State University.",
+    "Software engineer building distributed backends, cloud-native microservices, and AI-powered agents. Completed my MS in Computer Science at Arizona State University in 2026.",
   tagline:
     "Backend systems · LLM agents · Cloud infrastructure · Designed for scale and resilience.",
   location: "Tempe, Arizona",
   email: "girishnalawade020@gmail.com",
   phone: "(480) 406-1376",
   github: "https://github.com/Girish-del",
-  linkedin: "https://www.linkedin.com/in/girish-nalawade/",
+  linkedin: "https://www.linkedin.com/in/girishnalawade/",
   // TODO(user): replace with real Instagram URL.
-  instagram: "https://instagram.com/girish.codes",
+  instagram: "https://instagram.com/_girish_here",
   resumeHref: "/resume.pdf",
   resumeFileName: "Girish_Nalawade_Resume.pdf",
-  heroImage: "/hero.jpg",
-  /** Casual portrait for Who I am / What I do — drop at public/who.jpg */
-  whoImage: "/who.jpg",
+  heroImage: "/hero.jpeg",
+  /** Casual portrait for Who I am / What I do — drop at public/who.jpeg */
+  whoImage: "/who.jpeg",
 
   // --- New copy for restructured site ---
 
   /** 2-3 sentence identity statement for the "Who I am" section */
   whoIAm:
-    "I'm a software engineer who treats distributed systems and AI agents as creative material, not just tooling. I grew up writing code that had to keep running while real people moved real money through it — that pressure shaped how I think about reliability, latency, and the small details that separate something that demos well from something that survives production.",
+    "I'm a software engineer who treats distributed systems and AI agents as creative material, not just tooling. I grew up writing code that had to keep running while real people moved real money through it that pressure shaped how I think about reliability, latency, and the small details that separate something that demos well from something that survives production.",
 
   /** Longer narrative bio for "About" section */
   aboutLong: [
-    "Born and raised in Pune, India. Spent my first two years out of undergrad at Western Union on a backend team that owned a slice of a payments engine handling millions of transactions a day — that's where I learned to love p99 latency, fault tolerance, and the kind of quiet engineering that nobody notices when it's working.",
+    "Born and raised in Pune, India. Spent my first two years out of undergrad at Western Union on a backend team that owned a slice of a payments engine handling millions of transactions a day that's where I learned to love p99 latency, fault tolerance, and the kind of quiet engineering that nobody notices when it's working.",
     "Now finishing my MS in Computer Science at Arizona State University, with a focus on software engineering, distributed systems, and applied AI. I split my time between coursework, a network engineering role on campus, and side projects exploring multi-agent orchestration, MCP servers, and LLM-driven developer tooling.",
     "Off-keyboard: photography, long walks, cooking experiments that occasionally work, and trying to convince my friends that observability dashboards are beautiful.",
   ] as const,
@@ -285,17 +285,30 @@ export type SideQuest = {
 
 export const sideQuests: readonly SideQuest[] = [
   {
-    slug: "devops-mcp",
+    slug: "trust-yourself",
     category: "Project",
-    title: "DevOps MCP Server",
-    subtitle: "Model Context Protocol bridge for CI/CD",
+    title: "TrustYourself",
+    subtitle: "Preventing sensitive data leakage in AI workflows",
     period: "Feb 2025 — Apr 2025",
     description:
-      "Production-grade MCP server exposing 12 CI/CD tools — GitHub Actions triggers, AWS ECS deploy status, CloudWatch log streaming — so LLM agents can orchestrate deployments autonomously. OAuth 2.0 + tool-level access control. Cut manual DevOps intervention by 60%.",
-    tags: ["Python", "FastAPI", "MCP SDK", "Docker", "AWS", "OAuth 2.0"],
-    image: "/projects/devops-mcp.png",
-    imageAlt: "DevOps MCP Server dashboard mock",
-    github: "https://github.com/Girish-del",
+      "Built a local-first AI orchestration system that prevents sensitive data leakage in cloud LLM workflows. The platform redacts API keys, PII, internal hostnames, and proprietary code before routing requests between local Ollama models (Phi-3) and OpenAI models. Implemented cryptographically signed receipts, Merkle-tree audit logs, and verifiable cloud payload tracking so developers can prove exactly what data was exposed to external AI providers. Includes real-time redaction previews, local/cloud stream separation, adversarial testing, and signed session verification.",
+    tags: [
+      "Python",
+      "FastAPI",
+      "Node.js",
+      "Express",
+      "Ollama",
+      "OpenAI",
+      "LLM Security",
+      "Presidio",
+      "spaCy",
+      "Cryptography",
+      "Audit Logging",
+      "Privacy Engineering"
+    ],
+    image: "/projects/trust-yourself.png",
+    imageAlt: "TrustYourself privacy-first LLM orchestration dashboard",
+    github: "https://github.com/Girish-del/TrustYourself",
   },
   {
     slug: "mace",

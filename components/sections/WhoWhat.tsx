@@ -41,7 +41,7 @@ export function WhoWhat() {
               ) : (
                 <PortraitPlaceholder
                   label="Portrait placeholder"
-                  path="public/who.jpg"
+                  path="public/who.jpeg"
                   hint="Recommended: 3:4 portrait, min 900×1200px"
                   className="absolute inset-0"
                 />
@@ -92,7 +92,7 @@ export function WhoWhat() {
                 chapter="01"
                 label="What I do"
                 title="Four areas I keep coming back to."
-                description="The disciplines I've built deepest in — and the ones I tend to be most useful around."
+                description="The disciplines I've built deepest in and the ones I tend to be most useful around."
                 className="mb-8 md:mb-10"
               />
 
