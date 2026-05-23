@@ -493,4 +493,110 @@
     height: 36px;
     opacity: 0.7;
   }
+
+  /* === Impact marquee === */
+  .impact-marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+  .impact-marquee-track {
+    will-change: transform;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .impact-marquee:hover .impact-marquee-track {
+      animation-play-state: paused;
+    }
+  }
+
+  /* === About flash cards === */
+  .flash-card {
+    perspective: 1000px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+  }
+  .flash-card-inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 120px;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @media (min-width: 640px) {
+    .flash-card-inner { min-height: 140px; }
+  }
+  .flash-card.is-flipped .flash-card-inner {
+    transform: rotateY(180deg);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .flash-card:hover .flash-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flash-card.is-flipped:hover .flash-card-inner {
+      transform: rotateY(0deg);
+    }
+  }
+  .flash-card-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem;
+    backface-visibility: hidden;
+    border: 1px solid rgb(var(--border) / 0.3);
+    background: rgb(var(--surface-elev) / 0.55);
+    transition: border-color 0.2s;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .flash-card:hover .flash-card-face {
+      border-color: rgb(var(--accent) / 0.5);
+    }
+  }
+  .flash-card-back {
+    transform: rotateY(180deg);
+  }
+
+  /* === Experience timeline === */
+  .timeline-track {
+    padding-left: 0.25rem;
+  }
+  .timeline-rail--bg {
+    background: linear-gradient(
+      to bottom,
+      rgb(var(--border) / 0.15),
+      rgb(var(--border) / 0.35),
+      rgb(var(--border) / 0.15)
+    );
+  }
+  .timeline-rail--fill {
+    background: linear-gradient(
+      to bottom,
+      rgb(var(--accent)),
+      rgb(var(--accent-hot))
+    );
+    transition: height 0.12s ease-out;
+    pointer-events: none;
+  }
+  .timeline-node-ring {
+    border-radius: 9999px;
+    background: rgb(var(--accent) / 0.15);
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .timeline-node-dot {
+    background: rgb(var(--border) / 0.55);
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+  .timeline-node.is-active .timeline-node-ring {
+    transform: scale(1.15);
+    background: rgb(var(--accent) / 0.35);
+  }
+  .timeline-node.is-active .timeline-node-dot {
+    background: rgb(var(--accent));
+    transform: scale(1.1);
+  }
 }

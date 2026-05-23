@@ -2,27 +2,10 @@
 
 import Image from "next/image";
 import { useState, type ReactNode } from "react";
-import {
-  ArrowUpRight,
-  FileText,
-  Github,
-  Mic,
-  Sparkles,
-  Users,
-} from "lucide-react";
-import { sideQuests, type SideQuest } from "@/lib/content";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Reveal } from "@/components/ui/Reveal";
+import { ArrowUpRight, FileText, Github, Mic, Sparkles, Users } from "lucide-react";
+import type { SideQuest } from "@/lib/content";
 
 type Category = SideQuest["category"];
-
-const CATEGORIES: { id: Category | "All"; label: string }[] = [
-  { id: "All", label: "All" },
-  { id: "Project", label: "Projects" },
-  { id: "Publication", label: "Publications" },
-  { id: "Community", label: "Communities" },
-  { id: "Talk", label: "Talks" },
-];
 
 const ICONS: Record<Category, ReactNode> = {
   Project: <Sparkles className="h-3.5 w-3.5" />,
@@ -45,61 +28,6 @@ const COVER_CLASS: Record<Category, string> = {
   Talk: "quest-cover--talk",
 };
 
-export function SideQuests() {
-  const [active, setActive] = useState<Category | "All">("All");
-  const visible =
-    active === "All" ? sideQuests : sideQuests.filter((q) => q.category === active);
-
-  return (
-    <section
-      id="side-quests"
-      aria-labelledby="side-quests-heading"
-      className="relative overflow-hidden py-20 md:py-32"
-    >
-      <div className="gutter-x mx-auto max-w-[1400px]">
-        <SectionHeader
-          chapter="05"
-          label="Side quests"
-          title="Things I built, wrote, and showed up for."
-          description="Side projects, publications, communities, and talks — everything outside my day-job that I cared enough to ship."
-        />
-
-        <Reveal>
-          <div role="tablist" aria-label="Filter side quests" className="mb-8 flex flex-wrap gap-2">
-            {CATEGORIES.map((cat) => {
-              const isActive = active === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setActive(cat.id)}
-                  className={`tag-pill !text-[0.62rem] ${
-                    isActive
-                      ? "!border-accent !bg-accent !text-[rgb(var(--bg))]"
-                      : ""
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              );
-            })}
-          </div>
-        </Reveal>
-
-        <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
-          {visible.map((q, idx) => (
-            <Reveal key={q.slug} delay={(idx % 4) * 0.05}>
-              <QuestCard quest={q} />
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function QuestCover({ quest }: { quest: SideQuest }) {
   return (
     <div className={`quest-cover ${COVER_CLASS[quest.category]}`}>
@@ -111,7 +39,7 @@ function QuestCover({ quest }: { quest: SideQuest }) {
   );
 }
 
-function QuestCard({ quest }: { quest: SideQuest }) {
+export function QuestCard({ quest }: { quest: SideQuest }) {
   const [imageOk, setImageOk] = useState(Boolean(quest.image));
   const showCover = !quest.image || !imageOk;
 
@@ -159,9 +87,7 @@ function QuestCard({ quest }: { quest: SideQuest }) {
           )}
         </div>
 
-        <p className="text-sm leading-relaxed text-ink-muted">
-          {quest.description}
-        </p>
+        <p className="text-sm leading-relaxed text-ink-muted">{quest.description}</p>
 
         {quest.tags.length > 0 && (
           <div className="mt-auto flex flex-wrap gap-1.5 pt-2">

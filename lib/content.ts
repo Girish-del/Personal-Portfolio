@@ -22,6 +22,8 @@ export const personal = {
   resumeHref: "/resume.pdf",
   resumeFileName: "Girish_Nalawade_Resume.pdf",
   heroImage: "/hero.jpg",
+  /** Casual portrait for Who I am / What I do — drop at public/who.jpg */
+  whoImage: "/who.jpg",
 
   // --- New copy for restructured site ---
 
@@ -52,10 +54,28 @@ export const navItems: readonly NavItem[] = [
   { id: "who", label: "Who I am" },
   { id: "what", label: "What I do" },
   { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
   { id: "impact", label: "Impact" },
   { id: "experience", label: "Journey" },
-  { id: "side-quests", label: "Side quests" },
+  { id: "publications", label: "Publications" },
+  { id: "community", label: "Community" },
+  { id: "talks", label: "Talks" },
   { id: "education", label: "Education" },
+];
+
+export type FlashCard = {
+  front: string;
+  back: string;
+};
+
+/** Quick-flip cards at the end of About */
+export const aboutFlashCards: readonly FlashCard[] = [
+  { front: "Currently", back: "MS CS @ ASU · Network Engineer on campus storage infra" },
+  { front: "Origin story", back: "Pune → Western Union payments → Tempe" },
+  { front: "Off-keyboard", back: "Photography, long walks, cooking experiments" },
+  { front: "Hot take", back: "Observability dashboards are genuinely beautiful" },
+  { front: "Default mode", back: "Ship small, measure p99, iterate in production" },
+  { front: "Ask me about", back: "Multi-agent systems, MCP servers, Spring Boot at scale" },
 ];
 
 // --- What I do: 4 service pillars ---
@@ -185,6 +205,9 @@ export type Experience = {
   company: string;
   period: string;
   location: string;
+  /** Company logo — drop PNG/SVG at this path under public/ */
+  logo: string;
+  logoAlt: string;
   highlights: readonly string[];
 };
 
@@ -194,6 +217,8 @@ export const experiences: readonly Experience[] = [
     company: "Arizona State University",
     period: "May 2025 — Present",
     location: "Tempe, AZ",
+    logo: "/logos/asu.png",
+    logoAlt: "Arizona State University logo",
     highlights: [
       "Built Grafana + CloudWatch observability dashboards — cut MTTD by 45% and downtime by 20% across production storage clusters.",
       "Automated network configuration rollouts with Python + SNMP scripting, improving cluster uptime from 97% to 99.9%.",
@@ -205,6 +230,8 @@ export const experiences: readonly Experience[] = [
     company: "Western Union",
     period: "Aug 2023 — Aug 2024",
     location: "Pune, MH",
+    logo: "/logos/western-union.png",
+    logoAlt: "Western Union logo",
     highlights: [
       "Optimized transaction engine (Spring Boot + Redis + async queues) — payment latency 200ms → 140ms across global networks.",
       "Co-built T-View real-time monitoring for 1M+ daily transactions; cut fault recovery time by 40%.",
@@ -218,6 +245,8 @@ export const experiences: readonly Experience[] = [
     company: "Western Union",
     period: "Jan 2023 — Aug 2023",
     location: "Pune, MH",
+    logo: "/logos/western-union.png",
+    logoAlt: "Western Union logo",
     highlights: [
       "Led Spring Boot 1.9 → 2.1 migration for 5+ services; modernized configs and improved CVE posture.",
       "Improved serverless log archival (Lambda + S3 + CloudWatch) — storage costs -35%, traceability across 20+ services.",
@@ -230,6 +259,8 @@ export const experiences: readonly Experience[] = [
     company: "Suvidha Foundation",
     period: "Oct 2021 — May 2022",
     location: "Pune, MH",
+    logo: "/logos/suvidha.png",
+    logoAlt: "Suvidha Foundation logo",
     highlights: [
       "Built resilient REST APIs (Spring Boot + Flask) at 99.95% uptime — seamless integration across enterprise client platforms.",
     ],
@@ -348,6 +379,9 @@ export type Education = {
   period: string;
   location: string;
   emoji: string;
+  /** Campus crest / logo — drop at this path under public/ */
+  image: string;
+  imageAlt: string;
 };
 
 export const education: readonly Education[] = [
@@ -357,6 +391,8 @@ export const education: readonly Education[] = [
     period: "Aug 2024 — May 2026",
     location: "Tempe, AZ",
     emoji: "ASU",
+    image: "/education/asu.png",
+    imageAlt: "Arizona State University campus",
   },
   {
     school: "Savitribai Phule Pune University",
@@ -364,6 +400,8 @@ export const education: readonly Education[] = [
     period: "Aug 2019 — May 2023",
     location: "Pune, MH",
     emoji: "SPPU",
+    image: "/education/sppu.png",
+    imageAlt: "Savitribai Phule Pune University",
   },
 ];
 

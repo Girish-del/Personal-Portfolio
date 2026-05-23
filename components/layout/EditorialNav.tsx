@@ -51,16 +51,16 @@ export function EditorialNav() {
         {personal.firstName.toUpperCase()}
       </Link>
 
-      {/* Desktop: inline links */}
-      <ul className="relative hidden items-center gap-4 lg:flex">
+      {/* Desktop: scrollable inline links from lg */}
+      <ul className="relative hidden max-w-[48vw] items-center gap-2 overflow-x-auto scrollbar-none lg:flex xl:max-w-[58vw] xl:gap-2.5 2xl:max-w-none 2xl:gap-3">
         {navItems.map((item) => (
-          <li key={item.id}>
+          <li key={item.id} className="shrink-0">
             <button
               type="button"
               onClick={() => smoothScrollTo(item.id)}
               aria-current={active === item.id ? "true" : undefined}
               className={cn(
-                "py-2 font-mono text-[0.6rem] uppercase tracking-[0.2em] transition-colors",
+                "py-2 font-mono text-[0.52rem] uppercase tracking-[0.14em] transition-colors xl:text-[0.55rem] xl:tracking-[0.16em]",
                 active === item.id
                   ? "text-accent"
                   : "text-ink-muted hover:text-accent",
