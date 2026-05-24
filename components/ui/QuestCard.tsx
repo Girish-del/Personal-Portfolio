@@ -48,12 +48,12 @@ export function QuestCard({ quest }: { quest: SideQuest }) {
       {showCover ? (
         <QuestCover quest={quest} />
       ) : (
-        <div className="relative aspect-[16/10] w-full overflow-hidden">
+        <div className="relative aspect-[4/3] w-full overflow-hidden">
           <Image
             src={quest.image!}
             alt={quest.imageAlt ?? quest.title}
             fill
-            sizes="(min-width: 768px) 50vw, 100vw"
+            sizes="(min-width: 1280px) 700px, (min-width: 768px) 50vw, 100vw"
             className="object-cover transition-transform duration-500 saturate-[0.88] contrast-[1.05] group-hover:scale-[1.04] group-hover:saturate-100"
             onError={() => setImageOk(false)}
           />

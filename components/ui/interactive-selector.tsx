@@ -36,7 +36,7 @@ export function InteractiveSelector({ slides, period, className }: Props) {
 
   return (
     <div
-      className={`project-gallery relative aspect-[7/5] w-full min-h-[255px] overflow-hidden bg-[rgb(var(--surface))] sm:min-h-[275px] ${className ?? ""}`}
+      className={`project-gallery relative aspect-[4/3] w-full min-h-[300px] overflow-hidden bg-[rgb(var(--surface))] sm:min-h-[340px] md:min-h-[380px] lg:min-h-[420px] ${className ?? ""}`}
       aria-roledescription="carousel"
       aria-label="Project screenshots"
     >
@@ -67,7 +67,7 @@ export function InteractiveSelector({ slides, period, className }: Props) {
                     src={item.src}
                     alt={item.alt}
                     fill
-                    sizes="(min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 1280px) 700px, (min-width: 768px) 50vw, 100vw"
                     className="project-gallery-image object-contain object-center"
                     onError={() =>
                       setFailedSrc((prev) => new Set(prev).add(item.src))
