@@ -11,12 +11,11 @@ export const personal = {
     "Software engineer building distributed backends, cloud-native microservices, and AI-powered agents. Completed my MS in Computer Science at Arizona State University in 2026.",
   tagline:
     "Backend systems · LLM agents · Cloud infrastructure · Designed for scale and resilience.",
-  location: "Tempe, Arizona",
+  location: "Arizona, United States",
   email: "girishnalawade020@gmail.com",
   phone: "(480) 406-1376",
   github: "https://github.com/Girish-del",
   linkedin: "https://www.linkedin.com/in/girishnalawade/",
-  // TODO(user): replace with real Instagram URL.
   instagram: "https://instagram.com/_girish_here",
   resumeHref: "/resume.pdf",
   resumeFileName: "Girish_Nalawade_Resume.pdf",
@@ -355,6 +354,45 @@ export const sideQuests: readonly SideQuest[] = [
     ],
     github: "https://github.com/Girish-del/TrustYourself",
   },
+  {
+    slug: "agentforge",
+    category: "Project",
+    title: "AgentForge",
+    subtitle: "Autonomous AI Research Framework",
+    period: "Apr 2025 — Present",
+    description:
+      "Multi-agent research orchestration platform: submit a high-level goal and a pipeline of specialized agents iteratively collects data, selects models, trains, evaluates, analyzes failures, proposes improvements, and reruns until a target metric is reached or budget is exhausted. Ships a gamified React lab console (XP, quest log, seven-agent crew HUD), dual FastAPI backends (user API + comprehensive scaffold), PostgreSQL run history, Docker Compose stack, MCP tool catalog, and CI-backed pytest suite.",
+    tags: [
+      "React",
+      "Vite",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker",
+      "Multi-Agent",
+      "Python",
+      "MCP",
+      "Pytest",
+      "GitHub Actions",
+    ],
+    image: "/projects/agentforge/01-main-dashboard.png",
+    imageAlt: "AgentForge main research dashboard with quest console and agent crew",
+    gallery: [
+      {
+        src: "/projects/agentforge/01-main-dashboard.png",
+        alt: "AgentForge main research dashboard",
+        title: "Research console",
+        description: "Quest console, agent crew & mission stats",
+      },
+      {
+        src: "/projects/agentforge/02-login.png",
+        alt: "AgentForge login page",
+        title: "Login",
+        description: "Gamified lab entry screen",
+      },
+    ],
+    github: "https://github.com/Girish-del/AgentForge---Autonomous-AI-Research-Framework",
+  },
+  
   {
     slug: "mace",
     category: "Project",
