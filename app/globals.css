@@ -599,4 +599,181 @@
     background: rgb(var(--accent));
     transform: scale(1.1);
   }
+
+  /* === Project image gallery carousel === */
+  .project-gallery-track {
+    will-change: transform;
+    line-height: 1.75rem;
+  }
+  .project-gallery-image {
+    line-height: 1.75rem;
+    padding: 0;
+  }
+  .project-gallery-placeholder {
+    line-height: 1.75rem;
+    background: linear-gradient(
+      145deg,
+      rgb(var(--accent-secondary) / 0.28),
+      rgb(var(--accent) / 0.15) 45%,
+      rgb(var(--surface) / 0.95)
+    );
+  }
+  .project-gallery-period {
+    position: absolute;
+    top: 0.65rem;
+    right: 0.65rem;
+    z-index: 4;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    line-height: 1.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgb(var(--bg));
+    background: rgb(var(--ink) / 0.78);
+    padding: 0.15rem 0.55rem;
+    pointer-events: none;
+  }
+  .project-gallery-nav {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    transform: translateY(-50%);
+    border: 1px solid rgb(var(--border) / 0.4);
+    background: rgb(var(--ink) / 0.55);
+    color: rgb(var(--bg));
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .project-gallery-nav:hover {
+      background: rgb(var(--accent));
+      border-color: rgb(var(--accent));
+    }
+  }
+  .project-gallery-nav--prev { left: 0.5rem; }
+  .project-gallery-nav--next { right: 0.5rem; }
+  .project-gallery-dots {
+    position: absolute;
+    bottom: 0.55rem;
+    left: 50%;
+    z-index: 3;
+    display: flex;
+    translate: -50% 0;
+    gap: 0.35rem;
+    padding: 0.25rem 0.45rem;
+    border-radius: 9999px;
+    background: rgb(var(--ink) / 0.45);
+    backdrop-filter: blur(6px);
+  }
+  .project-gallery-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    padding: 0;
+    border: none;
+    border-radius: 9999px;
+    background: rgb(var(--bg) / 0.45);
+    cursor: pointer;
+    transition: transform 0.25s ease, background 0.25s ease, width 0.25s ease;
+  }
+  .project-gallery-dot.is-active {
+    width: 1.1rem;
+    background: rgb(var(--accent));
+  }
+  .project-gallery-caption {
+    position: absolute;
+    left: 0.75rem;
+    top: 0.75rem;
+    z-index: 2;
+    max-width: min(16rem, 70%);
+    padding: 0.4rem 0.55rem;
+    background: rgb(var(--ink) / 0.62);
+    backdrop-filter: blur(4px);
+  }
+  @media (max-width: 639px) {
+    .project-gallery-nav {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+    .project-gallery-caption {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project-gallery-track {
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* === Publication PDF viewer === */
+  .publication-pdf {
+    position: relative;
+    border-bottom: 1px solid rgb(var(--border) / 0.25);
+    background: rgb(var(--surface));
+  }
+  .publication-pdf-frame {
+    height: clamp(280px, 52vw, 520px);
+    width: 100%;
+    overflow: hidden;
+    background: #f4f1ea;
+  }
+  .dark .publication-pdf-frame {
+    background: #2a211c;
+  }
+  .publication-pdf-iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #fff;
+  }
+  .publication-pdf-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    padding: 0.65rem 0.85rem;
+    background: rgb(var(--surface-elev) / 0.55);
+    border-top: 1px solid rgb(var(--border) / 0.2);
+  }
+  .publication-pdf-action {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(var(--accent));
+    border: 1px solid rgb(var(--border) / 0.35);
+    padding: 0.45rem 0.75rem;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .publication-pdf-action:hover {
+      border-color: rgb(var(--accent));
+      background: rgb(var(--accent) / 0.08);
+    }
+  }
+  .publication-pdf-hint {
+    margin: 0;
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgb(var(--ink-subtle));
+  }
+  @media (max-width: 639px) {
+    .publication-pdf-hint {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
 }

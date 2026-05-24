@@ -2,7 +2,6 @@
  * Single source of truth for portfolio content.
  *
  * TODO(user): Replace INSTAGRAM_URL with your real Instagram URL.
- * TODO(user): Replace the publication entry with real metadata when published.
  */
 
 export const personal = {
@@ -269,6 +268,13 @@ export const experiences: readonly Experience[] = [
 
 // --- Side quests: side projects, publications, communities, talks, etc. ---
 
+export type GallerySlide = {
+  src: string;
+  alt: string;
+  title: string;
+  description?: string;
+};
+
 export type SideQuest = {
   slug: string;
   category: "Project" | "Publication" | "Community" | "Talk";
@@ -279,7 +285,14 @@ export type SideQuest = {
   tags: readonly string[];
   image?: string;
   imageAlt?: string;
+  /** Multiple screenshots for Projects — paths under public/projects/{slug}/ */
+  gallery?: readonly GallerySlide[];
   href?: string;
+  /** Google Scholar citation URL (Publications) */
+  scholarHref?: string;
+  /** Local PDF for inline preview + download (Publications) */
+  pdfHref?: string;
+  pdfFileName?: string;
   github?: string;
 };
 
@@ -308,6 +321,38 @@ export const sideQuests: readonly SideQuest[] = [
     ],
     image: "/projects/trust-yourself.png",
     imageAlt: "TrustYourself privacy-first LLM orchestration dashboard",
+    gallery: [
+      {
+        src: "/projects/trust-yourself/01-dashboard.png",
+        alt: "TrustYourself dashboard overview",
+        title: "Dashboard",
+        description: "Main Screen",
+      },
+      {
+        src: "/projects/trust-yourself/02-redaction.png",
+        alt: "Real-time redaction preview",
+        title: "Redaction",
+        description: "PII & secrets stripped before cloud",
+      },
+      {
+        src: "/projects/trust-yourself/03-cloud and local data.png",
+        alt: "Data Comparison between Cloud and Local Data",
+        title: "Data",
+        description: "Cloud and Local Data",
+      },
+      {
+        src: "/projects/trust-yourself/04 - Final Query.png",
+        alt: "Final Query Output",
+        title: "Output",
+        description: "Final Query Output",
+      },
+      {
+        src: "/projects/trust-yourself/05 - Session Receipt.png",
+        alt: "Merkel Session Signature",
+        title: "Session Receipt",
+        description: "Merkel Session Signature",
+      },
+    ],
     github: "https://github.com/Girish-del/TrustYourself",
   },
   {
@@ -321,6 +366,26 @@ export const sideQuests: readonly SideQuest[] = [
     tags: ["LangGraph", "Claude API", "FAISS", "FastAPI", "React", "GCP"],
     image: "/projects/mace.png",
     imageAlt: "MACE multi-agent orchestration mock",
+    gallery: [
+      {
+        src: "/projects/mace/01-orchestrator.png",
+        alt: "MACE orchestrator view",
+        title: "Orchestrator",
+        description: "LangGraph agent routing",
+      },
+      {
+        src: "/projects/mace/02-agents.png",
+        alt: "Specialized agent panel",
+        title: "Agents",
+        description: "Support & domain specialists",
+      },
+      {
+        src: "/projects/mace/03-memory.png",
+        alt: "Shared memory layer",
+        title: "Memory",
+        description: "FAISS duplicate-intent detection",
+      },
+    ],
     github: "https://github.com/Girish-del",
   },
   {
@@ -334,6 +399,26 @@ export const sideQuests: readonly SideQuest[] = [
     tags: ["FastAPI", "React", "LangChain", "AST", "GitHub Actions"],
     image: "/projects/codesage.png",
     imageAlt: "CodeSage PR reviewer mock",
+    gallery: [
+      {
+        src: "/projects/codesage/01-review.png",
+        alt: "CodeSage PR review summary",
+        title: "Review",
+        description: "LLM findings on a pull request",
+      },
+      {
+        src: "/projects/codesage/02-patterns.png",
+        alt: "Design pattern heuristics",
+        title: "Patterns",
+        description: "GoF & AST-driven checks",
+      },
+      {
+        src: "/projects/codesage/03-ci.png",
+        alt: "GitHub Actions integration",
+        title: "CI hook",
+        description: "Automated quality gate",
+      },
+    ],
     github: "https://github.com/Girish-del",
   },
   {
@@ -347,19 +432,42 @@ export const sideQuests: readonly SideQuest[] = [
     tags: ["Docker", "AWS ECS", "Terraform", "Kafka", "ClickHouse"],
     image: "/projects/deployq.png",
     imageAlt: "DeployQ deployment platform mock",
+    gallery: [
+      {
+        src: "/projects/deployq/01-pipeline.png",
+        alt: "DeployQ pipeline dashboard",
+        title: "Pipeline",
+        description: "ECS deploy orchestration",
+      },
+      {
+        src: "/projects/deployq/02-logs.png",
+        alt: "Kafka to ClickHouse log stream",
+        title: "Logs",
+        description: "Real-time debug stream",
+      },
+      {
+        src: "/projects/deployq/03-infra.png",
+        alt: "Terraform infrastructure view",
+        title: "Infra",
+        description: "IaC & IAM wiring",
+      },
+    ],
     github: "https://github.com/Girish-del",
   },
-  // TODO(user): Replace this placeholder publication with real metadata.
   {
-    slug: "mace-paper",
+    slug: "kg-itp",
     category: "Publication",
-    title: "Coordinating LLM Agents via Shared Memory: Lessons from MACE",
-    subtitle: "Preprint · Multi-Agent Systems Workshop, 2025",
-    period: "2025",
+    title: "KG-ITP: A Knowledge Graph for Intelligent Travel Planning",
+    subtitle: "IEEE COMPSAC 2025 · Toronto, Canada",
+    period: "July 2025",
     description:
-      "We present MACE, a multi-agent coordination engine pairing LangGraph routing with FAISS-based duplicate-intent detection over sentence-transformer embeddings. A persistent shared-memory layer lets specialized Support and Domain agents resolve resource conflicts in real time, reaching 80%+ task completion versus 50% for a single-agent baseline and cutting redundant agent calls by 35% (Precision@5 = 0.87).",
-    tags: ["LLM Agents", "RAG", "FAISS", "Multi-Agent"],
-    href: "#",
+      "Introduces a travel-planning knowledge graph that semantically integrates GNIS natural features, IMLS cultural sites, Yelp dining data, and Valley Metro transit via OWL2 ontologies and GeoSPARQL. Resolves conflicts between authoritative and crowd-sourced datasets to surface niche attractions and support multi-criteria queries — e.g. vegetarian-friendly restaurants within 500m of transit-accessible cultural sites. Co-authored with Rajesh Anant Sawant, Ashutosh Sudhir Kumbhar, Aditya Patil, Jahnavi Gona, and Srividya Bansal.",
+    tags: ["Knowledge Graph", "GeoSPARQL", "OWL2", "RDF", "Semantic Web", "Travel Informatics"],
+    href: "https://ieeexplore.ieee.org/abstract/document/11126548",
+    scholarHref:
+      "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=HeJQCRoAAAAJ&citation_for_view=HeJQCRoAAAAJ:u5HHmVD_uO8C",
+    pdfHref: "/publications/kg-itp.pdf",
+    pdfFileName: "KG-ITP-A-Knowledge-Graph-for-Intelligent-Travel-Planning.pdf",
   },
   // TODO(user): Add real community/talk/hackathon entries.
   {
@@ -404,7 +512,7 @@ export const education: readonly Education[] = [
     period: "Aug 2024 — May 2026",
     location: "Tempe, AZ",
     emoji: "ASU",
-    image: "/education/asu.png",
+    image: "/logos/asu.png",
     imageAlt: "Arizona State University campus",
   },
   {
@@ -413,7 +521,7 @@ export const education: readonly Education[] = [
     period: "Aug 2019 — May 2023",
     location: "Pune, MH",
     emoji: "SPPU",
-    image: "/education/sppu.png",
+    image: "/logos/sppu.png",
     imageAlt: "Savitribai Phule Pune University",
   },
 ];

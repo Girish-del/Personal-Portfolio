@@ -3,6 +3,7 @@
 import { publications } from "@/lib/content";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Reveal } from "@/components/ui/Reveal";
+import { PublicationCard } from "@/components/ui/PublicationCard";
 import { QuestCard } from "@/components/ui/QuestCard";
 
 export function Publications() {
@@ -17,13 +18,23 @@ export function Publications() {
           chapter="06"
           label="Publications"
           title="Research I've put on paper."
-          description="Write-ups and preprints from multi-agent systems work."
+          description="Peer-reviewed work on knowledge graphs, semantic web, and applied AI systems."
         />
 
         <div className="grid gap-4 sm:gap-5">
           {publications.map((pub, idx) => (
             <Reveal key={pub.slug} delay={idx * 0.06}>
-              <QuestCard quest={pub} />
+              {pub.pdfHref && pub.pdfFileName ? (
+                <PublicationCard
+                  publication={{
+                    ...pub,
+                    pdfHref: pub.pdfHref,
+                    pdfFileName: pub.pdfFileName,
+                  }}
+                />
+              ) : (
+                <QuestCard quest={pub} />
+              )}
             </Reveal>
           ))}
         </div>

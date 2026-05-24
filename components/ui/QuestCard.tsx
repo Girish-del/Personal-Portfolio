@@ -99,16 +99,38 @@ export function QuestCard({ quest }: { quest: SideQuest }) {
           </div>
         )}
 
-        {quest.href && quest.category === "Publication" && (
-          <a
-            href={quest.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-accent hover:text-accent-hot"
-          >
-            Read full paper
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
+        {quest.category === "Publication" && (quest.href || quest.scholarHref) && (
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {quest.href && (
+              <a
+                href={quest.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-accent hover:text-accent-hot"
+              >
+                Read on IEEE Xplore
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            )}
+            {quest.scholarHref && (
+              <a
+                href={quest.scholarHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-accent hover:text-accent-hot"
+              >
+                <Image
+                  src="/logos/google-scholar.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="shrink-0"
+                />
+                Google Scholar
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            )}
+          </div>
         )}
       </div>
     </article>

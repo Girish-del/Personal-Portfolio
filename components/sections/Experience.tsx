@@ -21,13 +21,13 @@ function CompanyLogo({ src, alt }: { src: string; alt: string }) {
   }
 
   return (
-    <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden border border-[rgb(var(--border)/0.3)] bg-[rgb(var(--surface-elev)/0.6)] p-1.5">
+    <span className="relative inline-block h-10 w-10 shrink-0 overflow-hidden border border-[rgb(var(--border)/0.3)] bg-[rgb(var(--surface-elev)/0.6)]">
       <Image
         src={src}
         alt={alt}
-        width={40}
-        height={40}
-        className="h-full w-full object-contain"
+        fill
+        sizes="40px"
+        className="object-cover object-center"
         onError={() => setOk(false)}
       />
     </span>

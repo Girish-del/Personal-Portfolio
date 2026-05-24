@@ -3,6 +3,7 @@
 import { projects } from "@/lib/content";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Reveal } from "@/components/ui/Reveal";
+import { ProjectCard } from "@/components/ui/ProjectCard";
 import { QuestCard } from "@/components/ui/QuestCard";
 
 export function Projects() {
@@ -23,7 +24,11 @@ export function Projects() {
         <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
           {projects.map((p, idx) => (
             <Reveal key={p.slug} delay={(idx % 4) * 0.05}>
-              <QuestCard quest={p} />
+              {p.gallery && p.gallery.length > 0 ? (
+                <ProjectCard project={{ ...p, gallery: p.gallery }} />
+              ) : (
+                <QuestCard quest={p} />
+              )}
             </Reveal>
           ))}
         </div>
