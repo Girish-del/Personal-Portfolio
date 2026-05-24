@@ -10,7 +10,7 @@ type Props = {
 
 export function ProjectCard({ project }: Props) {
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden border border-[rgb(var(--border)/0.3)] bg-[rgb(var(--surface-elev)/0.45)] transition-colors hover:border-accent">
+    <article className="group relative flex h-full min-w-0 max-w-full flex-col overflow-hidden border border-[rgb(var(--border)/0.3)] bg-[rgb(var(--surface-elev)/0.45)] transition-colors hover:border-accent">
       <InteractiveSelector slides={project.gallery} period={project.period} />
 
       <div className="flex flex-1 flex-col gap-4 p-5 md:p-6">

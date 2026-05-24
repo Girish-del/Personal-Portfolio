@@ -601,9 +601,16 @@
   }
 
   /* === Project image gallery carousel === */
+  .project-gallery {
+    max-width: 100%;
+    min-width: 0;
+  }
   .project-gallery-track {
     will-change: transform;
     line-height: 1.75rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
   .project-gallery-image {
     line-height: 1.75rem;
@@ -699,6 +706,16 @@
     .project-gallery-nav {
       width: 1.75rem;
       height: 1.75rem;
+    }
+    .project-gallery-nav--prev { left: 0.35rem; }
+    .project-gallery-nav--next { right: 0.35rem; }
+    .project-gallery-period {
+      top: 0.45rem;
+      right: 0.45rem;
+      max-width: calc(100% - 1rem);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .project-gallery-caption {
       display: none;

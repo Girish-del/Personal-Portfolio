@@ -13,7 +13,7 @@ export function Projects() {
       aria-labelledby="projects-heading"
       className="relative overflow-hidden py-20 md:py-32"
     >
-      <div className="gutter-x mx-auto max-w-[1400px]">
+      <div className="gutter-x mx-auto min-w-0 max-w-[1400px]">
         <SectionHeader
           chapter="04"
           label="Projects"
@@ -21,9 +21,9 @@ export function Projects() {
           description="Side projects where I stress-tested agents, CI/CD, and backend patterns outside my day job."
         />
 
-        <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
+        <div className="grid min-w-0 gap-4 sm:gap-5 md:grid-cols-2">
           {projects.map((p, idx) => (
-            <Reveal key={p.slug} delay={(idx % 4) * 0.05}>
+            <Reveal key={p.slug} delay={(idx % 4) * 0.05} className="min-w-0 max-w-full">
               {p.gallery && p.gallery.length > 0 ? (
                 <ProjectCard project={{ ...p, gallery: p.gallery }} />
               ) : (

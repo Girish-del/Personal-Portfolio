@@ -36,13 +36,13 @@ export function InteractiveSelector({ slides, period, className }: Props) {
 
   return (
     <div
-      className={`project-gallery relative aspect-[4/3] w-full min-h-[300px] overflow-hidden bg-[rgb(var(--surface))] sm:min-h-[340px] md:min-h-[380px] lg:min-h-[420px] ${className ?? ""}`}
+      className={`project-gallery relative aspect-[4/3] w-full max-w-full min-h-0 overflow-hidden bg-[rgb(var(--surface))] md:min-h-[380px] lg:min-h-[420px] ${className ?? ""}`}
       aria-roledescription="carousel"
       aria-label="Project screenshots"
     >
-      <div className="relative h-full w-full overflow-hidden">
+      <div className="relative h-full w-full max-w-full overflow-hidden">
         <div
-          className="project-gallery-track flex h-full transition-transform duration-500 ease-out"
+          className="project-gallery-track flex h-full w-full max-w-full transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${activeIndex * 100}%)` }}
         >
           {slides.map((item, index) => {
@@ -50,7 +50,7 @@ export function InteractiveSelector({ slides, period, className }: Props) {
             return (
               <div
                 key={`${item.src}-${index}`}
-                className="relative h-full min-w-full shrink-0"
+                className="relative h-full w-full shrink-0 grow-0 basis-full"
                 aria-hidden={index !== activeIndex}
               >
                 {itemFailed ? (
@@ -58,7 +58,7 @@ export function InteractiveSelector({ slides, period, className }: Props) {
                     <p className="font-mono text-[0.58rem] uppercase tracking-[0.14em] text-accent-secondary">
                       {item.title}
                     </p>
-                    <code className="mt-2 font-mono text-[0.55rem] leading-7 text-accent-hot">
+                    <code className="mt-2 max-w-full break-all font-mono text-[0.55rem] leading-7 text-accent-hot">
                       {item.src}
                     </code>
                   </div>
@@ -67,7 +67,7 @@ export function InteractiveSelector({ slides, period, className }: Props) {
                     src={item.src}
                     alt={item.alt}
                     fill
-                    sizes="(min-width: 1280px) 700px, (min-width: 768px) 50vw, 100vw"
+                    sizes="(max-width: 767px) calc(100vw - 2.5rem), (min-width: 1280px) 700px, 50vw"
                     className="project-gallery-image object-contain object-center"
                     onError={() =>
                       setFailedSrc((prev) => new Set(prev).add(item.src))

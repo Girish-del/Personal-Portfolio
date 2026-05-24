@@ -44,16 +44,16 @@ export function QuestCard({ quest }: { quest: SideQuest }) {
   const showCover = !quest.image || !imageOk;
 
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden border border-[rgb(var(--border)/0.3)] bg-[rgb(var(--surface-elev)/0.45)] transition-colors hover:border-accent">
+    <article className="group relative flex h-full min-w-0 max-w-full flex-col overflow-hidden border border-[rgb(var(--border)/0.3)] bg-[rgb(var(--surface-elev)/0.45)] transition-colors hover:border-accent">
       {showCover ? (
         <QuestCover quest={quest} />
       ) : (
-        <div className="relative aspect-[4/3] w-full overflow-hidden">
+        <div className="relative aspect-[4/3] w-full max-w-full overflow-hidden">
           <Image
             src={quest.image!}
             alt={quest.imageAlt ?? quest.title}
             fill
-            sizes="(min-width: 1280px) 700px, (min-width: 768px) 50vw, 100vw"
+            sizes="(max-width: 767px) calc(100vw - 2.5rem), (min-width: 1280px) 700px, 50vw"
             className="object-cover transition-transform duration-500 saturate-[0.88] contrast-[1.05] group-hover:scale-[1.04] group-hover:saturate-100"
             onError={() => setImageOk(false)}
           />
