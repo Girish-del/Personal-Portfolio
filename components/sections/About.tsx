@@ -5,6 +5,7 @@ import { Download, Github, Instagram, Linkedin, Mail, MapPin } from "lucide-reac
 import { aboutFlashCards, personal } from "@/lib/content";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Reveal } from "@/components/ui/Reveal";
+import { analyticsEvents } from "@/lib/gtag";
 
 export function About() {
   return (
@@ -46,6 +47,7 @@ export function About() {
                   label="Email"
                   value={personal.email}
                   href={`mailto:${personal.email}`}
+                  onClick={() => analyticsEvents.emailClick("about")}
                 />
                 <ContactRow
                   icon={<Linkedin className="h-4 w-4" />}
@@ -57,7 +59,7 @@ export function About() {
                 <ContactRow
                   icon={<Instagram className="h-4 w-4" />}
                   label="Instagram"
-                  value="@girish.codes"
+                  value="@_girish_here"
                   href={personal.instagram}
                   external
                 />
@@ -78,6 +80,7 @@ export function About() {
               <a
                 href={personal.resumeHref}
                 download={personal.resumeFileName}
+                onClick={() => analyticsEvents.resumeDownload("about")}
                 className="btn-primary mt-6 w-full sm:mt-7"
               >
                 <Download className="h-4 w-4" />
@@ -144,12 +147,14 @@ function ContactRow({
   value,
   href,
   external,
+  onClick,
 }: {
   icon: React.ReactNode;
   label: string;
   value: string;
   href?: string;
   external?: boolean;
+  onClick?: () => void;
 }) {
   const inner = (
     <span className="flex items-center justify-between gap-3 border-b border-[rgb(var(--border)/0.18)] py-2.5 transition-colors group-hover:border-accent">
@@ -172,6 +177,7 @@ function ContactRow({
       <a
         href={href}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        onClick={onClick}
         className="block"
       >
         {inner}

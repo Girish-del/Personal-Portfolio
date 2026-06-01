@@ -1,6 +1,6 @@
 import { personal } from "@/lib/content";
 
-const siteUrl = "https://girish-nalawade.vercel.app";
+const siteUrl = "https://girishnalawade1.netlify.app";
 
 export function StructuredData() {
   const json = {

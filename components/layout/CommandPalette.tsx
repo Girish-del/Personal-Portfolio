@@ -24,6 +24,7 @@ import { useTheme } from "next-themes";
 import { navItems, personal } from "@/lib/content";
 import { useBodyScrollLock } from "@/lib/useBodyScrollLock";
 import { smoothScrollTo } from "@/components/providers/LenisProvider";
+import { analyticsEvents } from "@/lib/gtag";
 
 type Action = {
   id: string;
@@ -85,6 +86,7 @@ export function CommandPalette() {
         label: `Email ${personal.email}`,
         group: "Connect",
         perform: () => {
+          analyticsEvents.emailClick("command_palette");
           close();
           setTimeout(() => {
             window.location.href = `mailto:${personal.email}`;
@@ -127,6 +129,7 @@ export function CommandPalette() {
         label: "Download Resume",
         group: "Connect",
         perform: () => {
+          analyticsEvents.resumeDownload("command_palette");
           const a = document.createElement("a");
           a.href = personal.resumeHref;
           a.download = personal.resumeFileName;

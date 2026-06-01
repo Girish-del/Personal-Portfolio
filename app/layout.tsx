@@ -10,6 +10,7 @@ import { AssistantWidget } from "@/components/layout/AssistantWidget";
 import { CommandPalette } from "@/components/layout/CommandPalette";
 import { EditorialCursor } from "@/components/effects/EditorialCursor";
 import { StructuredData } from "@/components/seo/StructuredData";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { personal } from "@/lib/content";
 
 const bebas = Bebas_Neue({
@@ -33,7 +34,7 @@ const syne = Syne({
   display: "swap",
 });
 
-const siteUrl = "https://girish-nalawade.vercel.app";
+const siteUrl = "https://girishnalawade1.netlify.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -43,6 +44,24 @@ export const metadata: Metadata = {
   },
   description: personal.shortBio,
   authors: [{ name: personal.name }],
+  creator: personal.name,
+  keywords: [
+    "Girish Nalawade",
+    "Software Engineer",
+    "Backend Engineer",
+    "Distributed Systems",
+    "Cloud Infrastructure",
+    "LLM Agents",
+    "Spring Boot",
+    "Kubernetes",
+    "Microservices",
+  ],
+  alternates: { canonical: siteUrl },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
   openGraph: {
     title: `${personal.name} — Software Engineer`,
     description: personal.shortBio,
@@ -50,6 +69,12 @@ export const metadata: Metadata = {
     siteName: `${personal.name} Portfolio`,
     type: "website",
     images: [{ url: "/og.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${personal.name} — Software Engineer`,
+    description: personal.shortBio,
+    images: ["/og.png"],
   },
   icons: { icon: "/favicon.svg" },
 };
@@ -77,6 +102,7 @@ export default function RootLayout({
       className={`${bebas.variable} ${spaceMono.variable} ${syne.variable}`}
     >
       <body className="relative min-h-screen bg-app font-sans text-ink antialiased">
+        <GoogleAnalytics />
         <StructuredData />
         <ThemeProvider>
           <LenisProvider>

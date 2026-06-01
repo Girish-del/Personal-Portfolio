@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ArrowDown, Download, Mail } from "lucide-react";
 import { personal, roleCycle } from "@/lib/content";
 import { Typewriter } from "@/components/effects/Typewriter";
+import { analyticsEvents } from "@/lib/gtag";
 
 export function Hero() {
   const [heroOk, setHeroOk] = useState(true);
@@ -45,12 +46,17 @@ export function Hero() {
             <a
               href={personal.resumeHref}
               download={personal.resumeFileName}
+              onClick={() => analyticsEvents.resumeDownload("hero")}
               className="btn-primary"
             >
               <Download className="h-4 w-4" />
               Resume
             </a>
-            <a href={`mailto:${personal.email}`} className="btn-ghost">
+            <a
+              href={`mailto:${personal.email}`}
+              onClick={() => analyticsEvents.emailClick("hero")}
+              className="btn-ghost"
+            >
               <Mail className="h-4 w-4" />
               Say hi
             </a>

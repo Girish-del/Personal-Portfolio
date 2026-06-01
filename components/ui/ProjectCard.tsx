@@ -3,6 +3,7 @@
 import { Github, Sparkles } from "lucide-react";
 import type { SideQuest } from "@/lib/content";
 import { InteractiveSelector } from "@/components/ui/interactive-selector";
+import { analyticsEvents } from "@/lib/gtag";
 
 type Props = {
   project: SideQuest & { gallery: NonNullable<SideQuest["gallery"]> };
@@ -31,6 +32,7 @@ export function ProjectCard({ project }: Props) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => analyticsEvents.projectGithubClick(project.title)}
               aria-label={`${project.title} on GitHub`}
               className="touch-target inline-flex shrink-0 items-center justify-center border border-[rgb(var(--border)/0.35)] text-ink-muted hover:border-accent hover:text-accent"
             >

@@ -1,7 +1,5 @@
 /**
  * Single source of truth for portfolio content.
- *
- * TODO(user): Replace INSTAGRAM_URL with your real Instagram URL.
  */
 
 export const personal = {
@@ -32,7 +30,7 @@ export const personal = {
   /** Longer narrative bio for "About" section */
   aboutLong: [
     "Born and raised in Pune, India. Spent my first two years out of undergrad at Western Union on a backend team that owned a slice of a payments engine handling millions of transactions a day that's where I learned to love p99 latency, fault tolerance, and the kind of quiet engineering that nobody notices when it's working.",
-    "Now finishing my MS in Computer Science at Arizona State University, with a focus on software engineering, distributed systems, and applied AI. I split my time between coursework, a network engineering role on campus, and side projects exploring multi-agent orchestration, MCP servers, and LLM-driven developer tooling.",
+    "I recently completed my MS in Computer Science at Arizona State University, with a focus on software engineering, distributed systems, and applied AI. Through the program I split my time between coursework, a network engineering role on campus, and side projects exploring multi-agent orchestration, MCP servers, and LLM-driven developer tooling.",
     "Off-keyboard: photography, long walks, cooking experiments that occasionally work, and trying to convince my friends that observability dashboards are beautiful.",
   ] as const,
 } as const;
@@ -303,7 +301,7 @@ export const sideQuests: readonly SideQuest[] = [
     subtitle: "Preventing sensitive data leakage in AI workflows",
     period: "Feb 2025 — Apr 2025",
     description:
-      "Built a local-first AI orchestration system that prevents sensitive data leakage in cloud LLM workflows. The platform redacts API keys, PII, internal hostnames, and proprietary code before routing requests between local Ollama models (Phi-3) and OpenAI models. Implemented cryptographically signed receipts, Merkle-tree audit logs, and verifiable cloud payload tracking so developers can prove exactly what data was exposed to external AI providers. Includes real-time redaction previews, local/cloud stream separation, adversarial testing, and signed session verification.",
+      "Developers routinely leak secrets, PII, internal hostnames, and proprietary code into cloud LLM requests with no verifiable audit trail. I built a local-first orchestrator that redacts sensitive spans with conservative, explainable rules, routes secret-bearing queries to a local model (Ollama / Phi-3) while sending only tokenized structure to the cloud (OpenAI), then reassembles the answer. Every session emits cryptographically signed (ed25519) receipts and a Merkle-tree audit log, so anyone can verify exactly what the cloud actually saw. Ships with live redaction previews, separated local/cloud streams, and an adversarial redaction corpus.",
     tags: [
       "Python",
       "FastAPI",
@@ -318,8 +316,6 @@ export const sideQuests: readonly SideQuest[] = [
       "Audit Logging",
       "Privacy Engineering"
     ],
-    image: "/projects/trust-yourself.png",
-    imageAlt: "TrustYourself privacy-first LLM orchestration dashboard",
     gallery: [
       {
         src: "/projects/trust-yourself/01-dashboard.png",
@@ -406,58 +402,49 @@ export const sideQuests: readonly SideQuest[] = [
     imageAlt: "MACE multi-agent orchestration mock",
     gallery: [
       {
-        src: "/projects/mace/01-orchestrator.png",
-        alt: "MACE orchestrator view",
-        title: "Orchestrator",
-        description: "LangGraph agent routing",
-      },
-      {
-        src: "/projects/mace/02-agents.png",
-        alt: "Specialized agent panel",
-        title: "Agents",
-        description: "Support & domain specialists",
-      },
-      {
-        src: "/projects/mace/03-memory.png",
-        alt: "Shared memory layer",
-        title: "Memory",
-        description: "FAISS duplicate-intent detection",
+        src: "/projects/mace.png",
+        alt: "MACE multi-agent orchestration mock",
+        title: "MACE",
+        description: "Multi-agent coordination engine",
       },
     ],
-    github: "https://github.com/Girish-del",
+    github:
+      "https://github.com/Girish-123-dev/SER594-Team25-MACE-Multi_Agent_Coordination_Engine",
   },
   {
-    slug: "codesage",
+    slug: "ordersync",
     category: "Project",
-    title: "CodeSage",
-    subtitle: "AI-driven pull request reviewer",
-    period: "Mar 2025 — Apr 2025",
+    title: "OrderSync",
+    subtitle: "Event-driven microservices for order management",
+    period: "Aug 2024 — Oct 2024",
     description:
-      "LLM-powered review engine. Detects inefficient or insecure patterns via LangChain + AST parsing, applying Gang of Four design-pattern heuristics. Automates 45% of code quality checks; cuts review effort by 40%.",
-    tags: ["FastAPI", "React", "LangChain", "AST", "GitHub Actions"],
-    image: "/projects/codesage.png",
-    imageAlt: "CodeSage PR reviewer mock",
+      "A microservices order-management backend fronted by an API Gateway with Eureka service discovery and a dedicated Auth Server. An Order Service coordinates Product, Inventory, and Notification services — synchronous calls are guarded by Resilience4J circuit breakers, while order events flow asynchronously over Kafka to keep services decoupled. Each service owns its datastore (MongoDB for products, MySQL for orders and inventory). The whole stack is containerized with Docker, orchestrated on Kubernetes, and instrumented end-to-end with OpenTelemetry, Prometheus, and the Grafana stack (Loki for logs, Tempo for distributed traces).",
+    tags: [
+      "Spring Boot",
+      "Spring Cloud Gateway",
+      "Eureka",
+      "Resilience4J",
+      "Kafka",
+      "MongoDB",
+      "MySQL",
+      "Docker",
+      "Kubernetes",
+      "OpenTelemetry",
+      "Prometheus",
+      "Grafana",
+    ],
+    image: "/projects/ordersync.png",
+    imageAlt: "OrderSync microservices architecture diagram",
     gallery: [
       {
-        src: "/projects/codesage/01-review.png",
-        alt: "CodeSage PR review summary",
-        title: "Review",
-        description: "LLM findings on a pull request",
-      },
-      {
-        src: "/projects/codesage/02-patterns.png",
-        alt: "Design pattern heuristics",
-        title: "Patterns",
-        description: "GoF & AST-driven checks",
-      },
-      {
-        src: "/projects/codesage/03-ci.png",
-        alt: "GitHub Actions integration",
-        title: "CI hook",
-        description: "Automated quality gate",
+        src: "/projects/ordersync.png",
+        alt: "OrderSync microservices architecture diagram",
+        title: "Architecture",
+        description:
+          "Gateway, Kafka events, per-service datastores & full observability",
       },
     ],
-    github: "https://github.com/Girish-del",
+    github: "https://github.com/Girish-del/OrderSync",
   },
   {
     slug: "deployq",
@@ -472,25 +459,13 @@ export const sideQuests: readonly SideQuest[] = [
     imageAlt: "DeployQ deployment platform mock",
     gallery: [
       {
-        src: "/projects/deployq/01-pipeline.png",
-        alt: "DeployQ pipeline dashboard",
-        title: "Pipeline",
-        description: "ECS deploy orchestration",
-      },
-      {
-        src: "/projects/deployq/02-logs.png",
-        alt: "Kafka to ClickHouse log stream",
-        title: "Logs",
-        description: "Real-time debug stream",
-      },
-      {
-        src: "/projects/deployq/03-infra.png",
-        alt: "Terraform infrastructure view",
-        title: "Infra",
-        description: "IaC & IAM wiring",
+        src: "/projects/deployq.png",
+        alt: "DeployQ deployment platform mock",
+        title: "DeployQ",
+        description: "Automated CI/CD platform",
       },
     ],
-    github: "https://github.com/Girish-del",
+    github: "https://github.com/Girish-del/DeployQ---Self-Deployment-Application",
   },
   {
     slug: "kg-itp",

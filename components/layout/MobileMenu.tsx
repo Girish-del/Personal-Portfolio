@@ -6,6 +6,7 @@ import { Menu, X, Download, Github, Instagram, Linkedin, Mail } from "lucide-rea
 import { navItems, personal } from "@/lib/content";
 import { useBodyScrollLock } from "@/lib/useBodyScrollLock";
 import { smoothScrollTo } from "@/components/providers/LenisProvider";
+import { analyticsEvents } from "@/lib/gtag";
 import { ThemeToggle } from "./ThemeToggle";
 
 type Props = {
@@ -123,14 +124,20 @@ export function MobileMenu({ open, onOpen, onClose, activeId }: Props) {
                 <a
                   href={personal.resumeHref}
                   download={personal.resumeFileName}
-                  onClick={onClose}
+                  onClick={() => {
+                    analyticsEvents.resumeDownload("mobile_menu");
+                    onClose();
+                  }}
                   className="btn-primary"
                 >
                   <Download className="h-4 w-4" /> Resume
                 </a>
                 <a
                   href={`mailto:${personal.email}`}
-                  onClick={onClose}
+                  onClick={() => {
+                    analyticsEvents.emailClick("mobile_menu");
+                    onClose();
+                  }}
                   aria-label="Email"
                   className="btn-ghost touch-target !p-3"
                 >
