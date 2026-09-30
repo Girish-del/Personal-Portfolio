@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { ArrowDown, Download, Mail } from "lucide-react";
+import { ArrowDown, Download, Linkedin, Mail } from "lucide-react";
 import { personal, roleCycle } from "@/lib/content";
 import { Typewriter } from "@/components/effects/Typewriter";
 import { analyticsEvents } from "@/lib/gtag";
@@ -63,6 +63,16 @@ export function Hero() {
             <a href="#about" className="btn-ghost">
               <ArrowDown className="h-4 w-4" />
               About me
+            </a>
+            <a
+              href={personal.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Girish Nalawade on LinkedIn"
+              className="btn-ghost"
+            >
+              <Linkedin className="h-4 w-4" />
+              LinkedIn
             </a>
           </div>
         </div>

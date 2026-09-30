@@ -30,15 +30,15 @@ export const personal = {
   /** Longer narrative bio for "About" section */
   aboutLong: [
     "Born and raised in Pune, India. Spent my first two years out of undergrad at Western Union on a backend team that owned a slice of a payments engine handling millions of transactions a day that's where I learned to love p99 latency, fault tolerance, and the kind of quiet engineering that nobody notices when it's working.",
-    "I recently completed my MS in Computer Science at Arizona State University, with a focus on software engineering, distributed systems, and applied AI. Through the program I split my time between coursework, a network engineering role on campus, and side projects exploring multi-agent orchestration, MCP servers, and LLM-driven developer tooling.",
+    "I recently completed my MS in Computer Science at Arizona State University, with a focus on software engineering, distributed systems, and applied AI. Through the program I split my time between coursework, a software engineering role on campus building an AI-assisted clinical platform, and side projects exploring multi-agent orchestration, MCP servers, and LLM-driven developer tooling.",
     "Off-keyboard: photography, long walks, cooking experiments that occasionally work, and trying to convince my friends that observability dashboards are beautiful.",
   ] as const,
 } as const;
 
 export const roleCycle: readonly string[] = [
   "Software Engineer",
-  "Network Engineer",
-  "AI Systems Builder",
+  "AI Engineer",
+  "GenAI Systems Builder",
   "Backend + LLM Architect",
   "Distributed Systems Tinkerer",
 ];
@@ -66,7 +66,7 @@ export type FlashCard = {
 
 /** Quick-flip cards at the end of About */
 export const aboutFlashCards: readonly FlashCard[] = [
-  { front: "Currently", back: "MS CS @ ASU · Network Engineer on campus storage infra" },
+  { front: "Currently", back: "MS CS from ASU · Building backend + AI systems, ex-Western Union" },
   { front: "Origin story", back: "Pune → Western Union payments → Tempe" },
   { front: "Off-keyboard", back: "Photography, long walks, cooking experiments" },
   { front: "Hot take", back: "Observability dashboards are genuinely beautiful" },
@@ -137,7 +137,7 @@ export const pillars: readonly Pillar[] = [
       "AWS CloudWatch",
       "AWS X-Ray",
       "JMeter",
-      "SNMP scripting",
+      "Load testing",
       "Incident response",
     ],
   },
@@ -155,42 +155,42 @@ export const impactMetrics: readonly ImpactMetric[] = [
   {
     value: "30%",
     label: "Payment latency cut",
-    context: "200ms → 140ms across Western Union's global payment networks",
-  },
-  {
-    value: "99.9%",
-    label: "Uptime delivered",
-    context: "ASU storage clusters, up from 97% via SNMP automation",
-  },
-  {
-    value: "40%",
-    label: "Deployment time saved",
-    context: "Kubernetes + Docker microservice rollouts",
-  },
-  {
-    value: "60%",
-    label: "DevOps manual work removed",
-    context: "MCP server giving LLM agents direct CI/CD access",
+    context: "350ms → 250ms on Western Union's core transaction engine (Spring Boot + Redis + async queues)",
   },
   {
     value: "1M+",
     label: "Daily transactions monitored",
-    context: "T-View real-time observability system",
+    context: "T-View real-time observability system for Western Union payments",
   },
   {
-    value: "45%",
-    label: "MTTD reduced",
-    context: "Grafana + CloudWatch dashboards for production storage",
+    value: "95%",
+    label: "RAG answer relevance",
+    context: "Hybrid semantic + keyword retrieval pipeline for course Q&A at ASU",
   },
   {
-    value: "80%+",
-    label: "Multi-agent task completion",
-    context: "MACE engine vs. 50% baseline with single-agent",
+    value: "40%",
+    label: "Deployment time saved",
+    context: "Containerized REST microservices on Docker + Kubernetes rollouts",
   },
   {
-    value: "500K",
-    label: "Concurrent requests load-tested",
-    context: "JMeter benchmarks; resolved 3 critical bottlenecks",
+    value: "40%",
+    label: "Fault recovery time cut",
+    context: "T-View monitoring for 1M+ daily payment transactions",
+  },
+  {
+    value: "75%",
+    label: "New-agent setup time reduced",
+    context: "Provenant AI central agent registry — cross-team reuse of architectures",
+  },
+  {
+    value: "35%",
+    label: "Log archival costs cut",
+    context: "Serverless pipeline on AWS Lambda + S3 + CloudWatch across 20+ services",
+  },
+  {
+    value: "33%",
+    label: "Fault tolerance improved",
+    context: "JMeter load testing at 10K concurrent requests — resolved critical bottlenecks",
   },
 ];
 
@@ -209,16 +209,16 @@ export type Experience = {
 
 export const experiences: readonly Experience[] = [
   {
-    role: "Network Engineer",
+    role: "Software Engineer",
     company: "Arizona State University",
-    period: "May 2025 — Present",
+    period: "May 2025 — May 2026",
     location: "Tempe, AZ",
     logo: "/logos/asu.png",
     logoAlt: "Arizona State University logo",
     highlights: [
-      "Built Grafana + CloudWatch observability dashboards — cut MTTD by 45% and downtime by 20% across production storage clusters.",
-      "Automated network configuration rollouts with Python + SNMP scripting, improving cluster uptime from 97% to 99.9%.",
-      "Hardened Cisco firewalls, VPN tunnels, and switches — reduced security-related downtime by 30% while sustaining policy compliance.",
+      "Built an AI-assisted Care Connect platform enabling voice-based patient interactions and structured clinical data capture — reduced manual model validation time by 30% with automated self-evaluation harnesses.",
+      "Reduced LLM hallucinations and improved answer relevance in course Q&A by engineering a hybrid RAG pipeline combining semantic vector search with keyword retrieval, achieving 95% relevance on the evaluated question set.",
+      "Accelerated feature delivery by using Claude Code, Cursor agents, and GPT as pair programmers for rapid prototyping, debugging, and test generation.",
     ],
   },
   {
@@ -229,11 +229,10 @@ export const experiences: readonly Experience[] = [
     logo: "/logos/western-union.png",
     logoAlt: "Western Union logo",
     highlights: [
-      "Optimized transaction engine (Spring Boot + Redis + async queues) — payment latency 200ms → 140ms across global networks.",
-      "Co-built T-View real-time monitoring for 1M+ daily transactions; cut fault recovery time by 40%.",
-      "Architected containerized microservices on Kubernetes + Docker; deployment time -40%, recovery speed +25%.",
-      "Real-time event-driven services on WebSockets + Kafka boosted engagement by 15% and cut notification latency by 22%.",
-      "Hardened CI/CD with Spinnaker, CloudBees, and AWS X-Ray across 10+ services.",
+      "Built a Karate API automation suite with dynamic response chaining across 50+ internal REST APIs, enabling end-to-end payment workflow validation from a single test input.",
+      "Optimized the core transaction engine with Spring Boot, Redis caching, and async queues — cut payment latency by 30% (350ms → 250ms) under production load.",
+      "Containerized REST microservices on Docker — deployment time -40% — and orchestrated on Kubernetes for 25% faster cluster recovery via health checks and rolling updates.",
+      "Co-designed T-View, a real-time monitoring system for 1M+ daily transactions, reducing mean fault recovery time by 40%.",
     ],
   },
   {
@@ -244,10 +243,9 @@ export const experiences: readonly Experience[] = [
     logo: "/logos/western-union.png",
     logoAlt: "Western Union logo",
     highlights: [
-      "Led Spring Boot 1.9 → 2.1 migration for 5+ services; modernized configs and improved CVE posture.",
-      "Improved serverless log archival (Lambda + S3 + CloudWatch) — storage costs -35%, traceability across 20+ services.",
-      "Integrated automated regression suites into CI/CD; release cycles accelerated by 20%.",
-      "Load tested with JMeter at 500K concurrent requests — resolved 3 critical bottlenecks, fault tolerance +33%.",
+      "Migrated 30+ microservices from Java 8 to Java 17 — modernized configurations, hardened security, and improved startup time.",
+      "Designed a serverless logging pipeline with AWS Lambda, S3, and CloudWatch — cut archival costs by 35% across 20+ services.",
+      "Load-tested services with JMeter at 10K concurrent requests — identified bottlenecks and improved fault tolerance by 33%.",
     ],
   },
   {
@@ -351,6 +349,24 @@ export const sideQuests: readonly SideQuest[] = [
     github: "https://github.com/Girish-del/TrustYourself",
   },
   {
+    slug: "provenant-ai",
+    category: "Project",
+    title: "Provenant AI",
+    subtitle: "AI Governance Platform · Hackathon Winner",
+    period: "2025",
+    description:
+      "Central registry for AI agents that holds each agent's configuration, architecture, and risk classification — so vulnerabilities and critical updates can be identified centrally across all downstream agents. Enables cross-team reuse by letting teams review and adapt existing agent architectures, cutting new-agent setup time by 75% and reducing duplicated implementation effort. Winner of an internal hackathon for enterprise risk classification, controls, and audit readiness.",
+    tags: [
+      "Next.js",
+      "NestJS",
+      "FastAPI",
+      "PostgreSQL",
+      "AI Governance",
+      "Risk Classification",
+      "Audit Readiness",
+    ],
+  },
+  {
     slug: "agentforge",
     category: "Project",
     title: "AgentForge",
@@ -370,20 +386,26 @@ export const sideQuests: readonly SideQuest[] = [
       "Pytest",
       "GitHub Actions",
     ],
-    image: "/projects/agentforge/01-main-dashboard.png",
+    image: "/projects/agentforge/01-main-dashboard.jpg",
     imageAlt: "AgentForge main research dashboard with quest console and agent crew",
     gallery: [
       {
-        src: "/projects/agentforge/01-main-dashboard.png",
+        src: "/projects/agentforge/01-main-dashboard.jpg",
         alt: "AgentForge main research dashboard",
         title: "Research console",
         description: "Quest console, agent crew & mission stats",
       },
       {
-        src: "/projects/agentforge/02-login.png",
-        alt: "AgentForge login page",
-        title: "Login",
-        description: "Gamified lab entry screen",
+        src: "/projects/agentforge/agentforge-02-run.jpg",
+        alt: "AgentForge run screen",
+        title: "Run",
+        description: "Live agent run with progress and outputs",
+      },
+      {
+        src: "/projects/agentforge/agentforge-03-library.jpg",
+        alt: "AgentForge library screen",
+        title: "Library",
+        description: "Reusable agents, tools, and mission history",
       },
     ],
     github: "https://github.com/Girish-del/AgentForge---Autonomous-AI-Research-Framework",
